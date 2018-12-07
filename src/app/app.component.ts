@@ -145,6 +145,71 @@ export class AppComponent implements OnInit {
   sumOfProblem2 = '';
   // end problem2 param
 
+  // problem3 transpose key
+
+  problem3Map = {
+      'C': 'D',
+      'Dm':'Em',
+      'Em':'F#m',
+      'F':'G',
+      'G':'A',
+      'Am':'Bm'
+  }
+
+  problem3Input = `Em Em Am Em
+  G C Am C
+  Em Dm Dm Dm
+  F F C Dm
+  Em F F C
+  Am Am Dm Am
+  C C F G
+  C G Dm F
+  Am Em C Em
+  Dm C C Am
+  G Am Dm C
+  Dm Dm Am F
+  C Em C F
+  Em Dm G Em
+  Em G G Em
+  C Em G Dm
+  C Em Em Em
+  C G Dm C
+  G C F Dm
+  Em C G G
+  G G F G
+  Dm G Em Em
+  Em C Em Am
+  Am F C G
+  F Am Em Am
+  F C C G
+  G F Em Em
+  C F C Am
+  Em Am Em F
+  G F G Em
+  C G Am Em
+  G C F Em
+  G Dm Dm G
+  Dm Am F Am
+  Am Em Dm G
+  G F F F
+  Em Dm F F
+  G Em Dm F
+  Em Dm G Am
+  Dm C Em F
+  F Am G F
+  Dm Am Em Em
+  Dm F C Em
+  G C G Em
+  F Dm Dm Am
+  G C F Em
+  Dm Dm C Dm
+  G F Em Am
+  G F Am G
+  Am G Em Dm`;
+
+  problem3Output = '';
+  // end problem3 transpose key
+
  ngOnInit() {
    this.sum = this.calculate(this.input_1, this.input_2);
 
@@ -152,6 +217,28 @@ export class AppComponent implements OnInit {
    this.problem2InputWithPadding = this.paddingZeroLeft(this.problem2Input, this.longestLength);
    console.log('after padding: ', this.problem2InputWithPadding);
    this.sumOfProblem2 = this.sumMoreThanTwoInput(this.problem2InputWithPadding);
+
+  // this.problem3Output = this.problem3Output.replace('G','A');
+  // this.problem3Output = this.problem3Output.replace('F','G');
+  // this.problem3Output = this.problem3Input.replace('Em','F#m');
+  // this.problem3Output = this.problem3Output.replace('C', 'D');
+  // this.problem3Output = this.problem3Output.replace('Dm','Em');
+  // this.problem3Output = this.problem3Output.replace('Am','Bm');
+
+  //   this.problem3(this.problem3Input);
+  //  console.log(this.problem3Input.split("\n"));
+  }
+  
+  problem3 (input) {
+    let newInputArray = this.problem3Input.split("\n");
+    let newInputTrim = Array<string>();
+    console.log('newInputArray is: ', newInputArray);
+    
+    newInputArray.forEach( each => {
+      newInputTrim.push(each.trim());
+    });
+
+    console.log('newInputTrim is: ', newInputTrim);
  }
 
  calculate(input1: string, input2: string): string {
