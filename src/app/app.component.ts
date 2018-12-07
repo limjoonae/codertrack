@@ -208,6 +208,8 @@ export class AppComponent implements OnInit {
   Am G Em Dm`;
 
   problem3Output = '';
+  outputString = '';
+  outArrayToShow = Array<string>();
   // end problem3 transpose key
 
  ngOnInit() {
@@ -215,31 +217,40 @@ export class AppComponent implements OnInit {
 
    this.longestLength = this.findTheLongestLengthOfInput(this.problem2Input);
    this.problem2InputWithPadding = this.paddingZeroLeft(this.problem2Input, this.longestLength);
-   console.log('after padding: ', this.problem2InputWithPadding);
    this.sumOfProblem2 = this.sumMoreThanTwoInput(this.problem2InputWithPadding);
+   this.problem3(this.problem3Input);
 
-  // this.problem3Output = this.problem3Output.replace('G','A');
-  // this.problem3Output = this.problem3Output.replace('F','G');
-  // this.problem3Output = this.problem3Input.replace('Em','F#m');
-  // this.problem3Output = this.problem3Output.replace('C', 'D');
-  // this.problem3Output = this.problem3Output.replace('Dm','Em');
-  // this.problem3Output = this.problem3Output.replace('Am','Bm');
-
-  //   this.problem3(this.problem3Input);
-  //  console.log(this.problem3Input.split("\n"));
   }
   
   problem3 (input) {
     let newInputArray = this.problem3Input.split("\n");
     let newInputTrim = Array<string>();
-    console.log('newInputArray is: ', newInputArray);
+    let output = Array<string>();
     
     newInputArray.forEach( each => {
       newInputTrim.push(each.trim());
     });
-
-    console.log('newInputTrim is: ', newInputTrim);
- }
+    
+    newInputTrim.forEach( each => {
+      let noteArray = Array<string>();
+      noteArray = each.split(" ");
+      
+      noteArray.forEach( note => {
+        let trasposeNote = this.problem3Map[note];
+        output.push(trasposeNote);
+      });
+    });
+    
+    let noteAt = 1;
+    output.forEach( newNote => {
+      this.outputString = this.outputString.concat(newNote).concat(" ");
+      if(noteAt % 4 === 0) {
+        this.outArrayToShow.push(this.outputString);
+        this.outputString = '';
+      }
+      noteAt++;
+    });
+  }
 
  calculate(input1: string, input2: string): string {
    let input1Num = 0;
@@ -283,7 +294,6 @@ export class AppComponent implements OnInit {
 
       if (eachInput.length > longestLength) {
         longestLength = eachInput.length;
-        console.log('new the longestLength is: ', longestLength);
       }
 
     });
@@ -302,8 +312,6 @@ export class AppComponent implements OnInit {
       if (eachInput.length < longestLength) {
         eachInput = eachInput.padStart(longestLength, '0');
       }
-
-      console.log('new eachInput is: ', eachInput);
       newArrayInput.push(eachInput);
 
     });
@@ -327,9 +335,7 @@ export class AppComponent implements OnInit {
         currentArrayInput[index + 1] = arrayInput[index + 1];
       }
 
-      console.log('sum of "', newSumOfTwoInput, '" and "', arrayInput[index + 1], '" is: ');
       newSumOfTwoInput = this.calculate(newSumOfTwoInput, currentArrayInput[index + 1]);
-      console.log(newSumOfTwoInput);
 
     }
     return newSumOfTwoInput;
